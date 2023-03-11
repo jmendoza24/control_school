@@ -9,7 +9,7 @@ class CreateEmpleados extends Component
     public $empleados = null;
     public $open = false; 
 
-    
+    protected $rules = [];
 
 
     public function render()
