@@ -24,6 +24,10 @@ Route::middleware([
 ])->group(function () {
     Route::get('/', function () { return view('dashboard'); })->name('dashboard');
     Route::view('lista-alumnos','alumnos.index')->name('alumnos.index');
+    Route::view('lista-escuelas','escuelas.index')->name('escuelas.index');
+    Route::view('lista-camiones','camiones.index')->name('camiones.index');
+    Route::view('lista-empleados','empleados.index')->name('empleados.index');
+
     //Route::view('dashboard-administracion','tableros.administracion')->name('tableros.admin');
     //Route::view('clasificadores/{catalogo}/{tipo}/general','clasificadores.index')->name('clasificadores.index');
 });
