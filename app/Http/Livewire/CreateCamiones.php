@@ -4,12 +4,14 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Camiones;
+use App\Models\Empleados;
 use Auth; 
+use DB;
 
 class CreateCamiones extends Component
 {
-    public $camiones=null;
-    public $open=false;
+    public $camiones=null, $choferes = null, $ayudantes = null;
+    public $open=false, $open_delete_camiones = false, $delete_id=null;
     public $id_camiones = null, $placa, $serie, $chofer, $ayudante1, $ayudante2, $turno, $telefono1, $telefono2, $ruta, $activo;
     
     protected $rules = ['placa'=>'required',
@@ -66,13 +68,42 @@ class CreateCamiones extends Component
     }
 
     public function eliminar($id){
-        Camiones::where('id',$id)->delete();
-        $this->Camiones = camiones::all();
+        $this->delete_id=$id;
+        $this->open_delete_camiones = true;
+        
+        //Camiones::where('id',$id)->delete();
+        //$this->Camiones = camiones::all();
+    }
+
+    public function deletecamion(){
+        Camiones::where('id',$this->delete_id)->delete();
+        $this->camiones=Camiones::all();
+        $this->open_delete_camiones=false;
+    }
+
+    function cancelar(){
+        $this->open_delete_camiones=false;
+        $this->delete_id=null;
     }
 
     public function render(){
         // dd(Auth::user()->id_empresa);
-        $this->camiones=Camiones::where('id_empresa',Auth::user()->id_empresa)->get();
+        $this->camiones=Camiones::leftJoin('empleados as e', function ($join) {
+                    $join->on('camiones.chofer','e.id');
+                    $join->on('e.tipo',db::raw('2'));
+                })
+                ->leftJoin('empleados as e2', function ($join) {
+                    $join->on('camiones.ayudante1','e2.id');
+                    $join->on('e2.tipo',db::raw('3'));
+                })
+                ->where('camiones.id_empresa',Auth::user()->id_empresa)
+                ->selectraw('camiones.*, e.nombre_completo as nombre_chofer, e2.nombre_completo as nom_ayudante')
+                ->get();
+        
+                // dd($this->camiones);
+
+        $this->choferes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',2]])->get();
+        $this->ayudantes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',3]])->get();
         return view('livewire.create-camiones');
     }
 }

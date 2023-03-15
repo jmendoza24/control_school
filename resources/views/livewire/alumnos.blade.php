@@ -58,4 +58,21 @@
             </tbody>
         </table>
     </div>
+    <x-jet-dialog-modal wire:model="open_delete" >
+        <x-slot name="title">
+            Eliminar alumno
+        </x-slot>
+
+        <x-slot name="content" >
+            
+            Estas seguro que deseas eliminar este Alumno?.
+        </x-slot>
+
+        <x-slot name="footer">
+            <button class="btn btn-secondary" wire:click="cancelar">Cancelar</button>
+            <x-jet-button wire:click="deletealumno" wire:loading.attr="disabled" class="btn bg-danger">
+                Eliminar
+            </x-jet-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>

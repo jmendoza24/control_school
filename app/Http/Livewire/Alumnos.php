@@ -7,7 +7,7 @@ use App\Models\AlumnosModel;
 
 class Alumnos extends Component{
     
-    public $alumnos = null;
+    public $alumnos = null, $delete_id = null, $open_delete = false;
     protected $listeners = ['actualiza_alumnos'];
 
     public function actualiza_alumnos(){
@@ -24,7 +24,19 @@ class Alumnos extends Component{
     }
 
     function eliminar($id){
-        AlumnosModel::where('id',$id)->delete();
-        $this->alumnos =  AlumnosModel::all();
+        $this->delete_id =  $id;
+        $this->open_delete = true;
     }
+
+    function deletealumno(){
+        AlumnosModel::where('id',$this->delete_id)->delete();
+        $this->alumnos =  AlumnosModel::all();
+        $this->open_delete = false;
+    }
+
+    function cancelar(){
+     $this->open_delete = false;
+     $this->delete_id =  null;   
+    }
+
 }
