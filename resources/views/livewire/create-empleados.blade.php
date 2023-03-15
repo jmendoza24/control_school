@@ -2,8 +2,8 @@
     <div class="card">
         <div class="card-header">
             <div class="text-4xl font-normal leading-normal mt-0 flex">
-                <h3 class="flex-1"> Camiones</h3>
-            <button class="btn btn-sm btn-primary" wire:click="nuevo_empleado" >+ Empleado</button>
+                <h3 class="flex-1"> Empleados</h3>
+            <button class="btn btn-sm btn-primary" wire:click="open_empleado" >+ Empleado</button>
             </div>
         </div>
         <div class="card-body">
@@ -13,41 +13,35 @@
                         <tr class="bg-white">
                             <th scope="col">Nombre</th>
                             <th scope="col">Tipo</th>
-                            <th scope="col">Chofer</th>
                             <th scope="col">Telefono</th>
                             <th scope="col">Direccion</th>
-                            <th scope="col">Telefono 1</th>
                             <th scope="col">Escuela</th>
                             <th scope="col">Turno</th>
                             <th scope="col">Correo</th>
-                            <th scope="col">Activo</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if($camiones->count())
-                            @foreach($camiones as $c)
+                        @if($empleados->count())
+                            @foreach($empleados as $e)
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="media-support-info">
-                                        <h5 class="iq-sub-label">{{ $c->placa}}</h5>
+                                        <h5 class="iq-sub-label">{{ $e->nombre_completo}}</h5>
                                         <p class="mb-0"></p>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="">{{ $c->serie}}</td>
-                                <td class="">{{ $c->chofer}}</td>
-                                <td class="">{{ $c->ayudante1}}</td>
-                                <td class="">{{ $c->turno}}</td>
-                                <td class="">{{ $c->telefono1}}</td>
-                                <td class="">{{ $c->ruta}}</td>
-                                <td>
-                                    <span class="badge bg-soft-primary p-2 text-primary">Activo</span>
-                                </td>
+                                <td class="">{{ $e->tipo}}</td>
+                                <td class="">{{ $e->telefono}}</td>
+                                <td class="">{{ $e->direccion}}</td>
+                                <td class="">{{ $e->escuelas}}</td>
+                                <td class="">{{ $e->turno}}</td>
+                                <td class="">{{ $e->correo}}</td>
                                 <td>
                                     <div class="d-flex justify-content-evenly">
-                                        <a class="btn btn-primary btn-icon btn-sm rounded-pill ms-2" wire:click="editar({{$c->id}})" role="button">
+                                        <a class="btn btn-primary btn-icon btn-sm rounded-pill ms-2" wire:click="editar({{$e->id}})" role="button">
                                             <span class="btn-inner">
                                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path opacity="0.4" d="M19.9927 18.9534H14.2984C13.7429 18.9534 13.291 19.4124 13.291 19.9767C13.291 20.5422 13.7429 21.0001 14.2984 21.0001H19.9927C20.5483 21.0001 21.0001 20.5422 21.0001 19.9767C21.0001 19.4124 20.5483 18.9534 19.9927 18.9534Z" fill="currentColor"></path>
@@ -56,7 +50,7 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                        <a class="btn btn-primary btn-icon btn-sm rounded-pill ms-2" wire:click="eliminar({{ $c->id}})" role="button">
+                                        <a class="btn btn-primary btn-icon btn-sm rounded-pill ms-2" wire:click="eliminar({{ $e->id}})" role="button">
                                             <span class="btn-inner">
                                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path opacity="0.4" d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="currentColor"></path>
@@ -74,4 +68,75 @@
             </div>
         </div>
     </div>
+
+    <x-jet-dialog-modal wire:model="open_empleado" class="z-40">
+        <x-slot name="title">Nuevo Empleado</x-slot>
+        <x-slot name="content"> 
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <x-jet-label value="Nombre completo"/>
+                    <x-jet-input type="text" class="w-full" wire:model.defer="nombre_completo"/>
+                    <x-jet-input-error for="nombre_completo"/>
+                </div>
+                <div>
+                    <x-jet-label value="Tipo"/>
+                    <x-jet-input type="text" class="w-full" wire:model.defer="tipo"/>
+                    <x-jet-input-error for="tipo"/>
+                </div>
+                <div>
+                    <x-jet-label value="Telefono"/>
+                    <x-jet-input type="text" class="w-full" wire:model.defer="telefono"/>
+                    <x-jet-input-error for="telefono"/>
+                </div>
+                <div>
+                    <x-jet-label value="Direccion"/>
+                    <x-jet-input type="text" class="w-full" wire:model.defer="direccion"/>
+                    <x-jet-input-error for="direccion"/>
+                </div>
+                <div>
+                    <x-jet-label value="Escuelas"/>
+                    <x-jet-input type="text" class="w-full" wire:model.defer="escuelas"/>
+                    <x-jet-input-error for="escuelas"/>
+                </div>
+                <div>
+                    <x-jet-label value="Turno"/>
+                    <x-jet-input type="text" class="w-full" wire:model.defer="turno"/>
+                    <x-jet-input-error for="turno"/>
+                </div>
+                <div>
+                    <x-jet-label value="Correo"/>
+                    <x-jet-input type="text" class="w-full" wire:model.defer="correo"/>
+                    <x-jet-input-error for="correo"/>
+                </div>
+                
+                <div>
+                    <x-jet-label value="Pass"/>
+                    <x-jet-input type="text" class="w-full" wire:model.defer="password"/>
+                    <x-jet-input-error for="Pass"/>
+                </div>                    
+              </div>
+        </x-slot>
+        <x-slot name="footer">
+            <div>
+                <button class="btn btn-primary" wire:click="guardar">Guardar</button>
+            </div>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+    <x-jet-dialog-modal wire:model="open_delete" >
+        <x-slot name="title">
+            Eliminar Empleado
+        </x-slot>
+
+        <x-slot name="content" >            
+            ¿Estas seguro que deseas eliminar este Empleado?.
+        </x-slot>
+
+        <x-slot name="footer">
+            <button class="btn btn-secondary" wire:click="cancelar">Cancelar</button>
+            <x-jet-button wire:click="deleteempleado" wire:loading.attr="disabled" class="btn bg-danger">
+                Eliminar
+            </x-jet-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>

@@ -9,8 +9,9 @@ use Auth;
 class CreateEscuela extends Component {
 
     public $escuelas=null;
-    public $open = false; 
+    public $open = false, $open_delete_escuela=false, $delete_id=null; 
     public $nombre, $direccion, $activo, $escuela_id = null, $escuela_elimina;
+
     protected $rules = ['nombre'=>'required',
                         'direccion'=>'required',
                         'activo'=>'required' ];
@@ -43,8 +44,21 @@ class CreateEscuela extends Component {
     }
 
     public function eliminar($id){
-        escuela::where('id',$id)->delete();
-        $this->escuelas = escuela::all();
+        $this->delete_id =$id;
+        $this->open_delete_escuela = true;
+        //escuela::where('id',$id)->delete();
+        //$this->escuelas = escuela::all();
+    }
+
+    public function deleteescuela(){
+        escuela::where('id',$this->delete_id)->delete();
+        $this->escuelas=escuela::all();
+        $this->open_delete_escuela=false;
+    }
+
+    function cancelar(){
+        $this->open_delete_escuela = false;
+        $this->delete_id=null;
     }
 
     public function render(){

@@ -10,5 +10,5 @@ class Empleados extends Model
     use HasFactory;
     
     public $table = 'empleados';
-    public $fillable = ['nombre_completo', 'tipo','telefono','direccion','escuelas','turno','correo','password'];
+    public $fillable = ['id_empresa','nombre_completo', 'tipo','telefono','direccion','escuelas','turno','correo','password'];
 }

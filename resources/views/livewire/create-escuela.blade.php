@@ -95,4 +95,21 @@
             </div>
         </x-slot>
     </x-jet-dialog-modal>
+
+    <x-jet-dialog-modal wire:model="open_delete_escuela" >
+        <x-slot name="title">
+            Eliminar Escuela
+        </x-slot>
+
+        <x-slot name="content" >            
+            ¿Estas seguro que deseas eliminar este Escuela?.
+        </x-slot>
+
+        <x-slot name="footer">
+            <button class="btn btn-secondary" wire:click="cancelar">Cancelar</button>
+            <x-jet-button wire:click="deleteescuela" wire:loading.attr="disabled" class="btn bg-danger">
+                Eliminar
+            </x-jet-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>

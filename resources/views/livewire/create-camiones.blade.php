@@ -12,12 +12,8 @@
                     <thead>
                         <tr class="bg-white">
                             <th scope="col">Placa</th>
-                            <th scope="col">Serie</th>
                             <th scope="col">Chofer</th>
-                            <th scope="col">Ayudante 1</th>
-                            <th scope="col">Turno</th>
-                            <th scope="col">Telefono 1</th>
-                            <th scope="col">Ruta</th>
+                            <th scope="col">Ayudante</th>
                             <th scope="col">Activo</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -26,22 +22,11 @@
                         @if($camiones->count())
                             @foreach($camiones as $c)
                             <tr>
+                                <td>{{ $c->placa}}</td>
+                                <td class="">{{ $c->nombre_chofer}}</td>
+                                <td class="">{{ $c->nom_ayudante}}</td>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="media-support-info">
-                                        <h5 class="iq-sub-label">{{ $c->placa}}</h5>
-                                        <p class="mb-0"></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="">{{ $c->serie}}</td>
-                                <td class="">{{ $c->chofer}}</td>
-                                <td class="">{{ $c->ayudante1}}</td>
-                                <td class="">{{ $c->turno}}</td>
-                                <td class="">{{ $c->telefono1}}</td>
-                                <td class="">{{ $c->ruta}}</td>
-                                <td>
-                                    <span class="badge bg-soft-primary p-2 text-primary">Activo</span>
+                                    <span class="badge bg-soft-{{ $c->activo == 1 ? 'primary':'secondary'}} p-2 text-primary">{{ $c->activo == 1 ? 'Activo':'No activo'}}</span>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-evenly">
@@ -90,7 +75,13 @@
                 </div>
                 <div>
                     <x-jet-label value="Chofer"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="chofer"/>
+                    <select class="w-full" wire:model.defer="chofer">
+                        <option value="">Selecciona</option>
+                        @foreach($choferes as $c)
+                        <option value="{{$c->id}}">{{$c->nombre_completo}}</option>
+                        @endforeach
+                        
+                    </select>
                     <x-jet-input-error for="chofer"/>
                 </div>
                 <div>
@@ -138,6 +129,23 @@
             <div>
                 <button class="btn btn-primary" wire:click="guardar">Guardar</button>
             </div>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+    <x-jet-dialog-modal wire:model="open_delete_camiones" >
+        <x-slot name="title">
+            Eliminar Camion
+        </x-slot>
+
+        <x-slot name="content" >            
+            ¿Estas seguro que deseas eliminar este Camion?.
+        </x-slot>
+
+        <x-slot name="footer">
+            <button class="btn btn-secondary" wire:click="cancelar">Cancelar</button>
+            <x-jet-button wire:click="deletecamion" wire:loading.attr="disabled" class="btn bg-danger">
+                Eliminar
+            </x-jet-button>
         </x-slot>
     </x-jet-dialog-modal>
 </div>
