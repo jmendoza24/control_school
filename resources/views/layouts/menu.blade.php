@@ -45,54 +45,67 @@
         <ul class="sub-nav collapse" id="utilities-error" data-bs-parent="#sidebar-menu">
             <li class="nav-item">
                 <a class="nav-link " href="{{ route('alumnos.index')}}">
-                    <i class="icon" data-bs-toggle="tooltip" title="Ventas" data-bs-placement="right">
+                    <i class="icon" data-bs-toggle="tooltip" title="Alumnos" data-bs-placement="right">
                         <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g>
                             <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
                             </g>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Ventas" data-bs-placement="right">V</i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Alumnos" data-bs-placement="right">A</i>
                     <span class="item-name">Alumnos</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="{{route('escuelas.index')}}">
-                    <i class="icon" data-bs-toggle="tooltip" title="Administracion" data-bs-placement="right">
+                    <i class="icon" data-bs-toggle="tooltip" title="Escuelas" data-bs-placement="right">
                         <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g>
                             <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
                             </g>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Administración" data-bs-placement="right">A</i>
-                    <span class="item-name">Escuela</span>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Escuelas" data-bs-placement="right">E</i>
+                    <span class="item-name">Escuelas</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="{{route('camiones.index')}}">
-                    <i class="icon" data-bs-toggle="tooltip" title="Administracion" data-bs-placement="right">
+                    <i class="icon" data-bs-toggle="tooltip" title="Camiones" data-bs-placement="right">
                         <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g>
                             <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
                             </g>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Administración" data-bs-placement="right">A</i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Camiones" data-bs-placement="right">C</i>
                     <span class="item-name">Camiones</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="">
-                    <i class="icon" data-bs-toggle="tooltip" title="Administracion" data-bs-placement="right">
+                    <i class="icon" data-bs-toggle="tooltip" title="Empleados" data-bs-placement="right">
                         <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g>
                             <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
                             </g>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Administración" data-bs-placement="right">A</i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Empleados" data-bs-placement="right">E</i>
                     <span class="item-name">Empleados</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{{ route('variables.index')}}">
+                    <i class="icon" data-bs-toggle="tooltip" title="Variables" data-bs-placement="right">
+                        <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                            </g>
+                        </svg>
+                    </i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Variables" data-bs-placement="right">V</i>
+                    <span class="item-name">Variables</span>
                 </a>
             </li>
         </ul>
