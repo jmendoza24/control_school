@@ -14,10 +14,6 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">Telefono</th>
-                            <th scope="col">Direccion</th>
-                            <th scope="col">Escuela</th>
-                            <th scope="col">Turno</th>
-                            <th scope="col">Correo</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -33,12 +29,16 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="">{{ $e->tipo}}</td>
+                                <td class="">
+                                    @switch($e->tipo)
+                                    @case(1) {{ 'Admin'}} @break
+                                    @case(2) {{ 'Chofer'}} @break
+                                    @case(3) {{ 'Ayudante'}} @break
+                                    @case(4) {{ 'Reportes'}} @break
+                                    @case(5) {{ 'General'}} @break
+                                    @endswitch
+                                </td>
                                 <td class="">{{ $e->telefono}}</td>
-                                <td class="">{{ $e->direccion}}</td>
-                                <td class="">{{ $e->escuelas}}</td>
-                                <td class="">{{ $e->turno}}</td>
-                                <td class="">{{ $e->correo}}</td>
                                 <td>
                                     <div class="d-flex justify-content-evenly">
                                         <a class="btn btn-primary btn-icon btn-sm rounded-pill ms-2" wire:click="editar({{$e->id}})" role="button">
@@ -80,7 +80,19 @@
                 </div>
                 <div>
                     <x-jet-label value="Tipo"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="tipo"/>
+                    <select class="w-full" wire:model.defer="tipo">
+                        <option value="">Selecciona</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Chofer</option>
+                        <option value="3">Ayudante</option>
+                        <option value="4">Reportes</option>
+                        <option value="5">Generico</option>
+                        {{-- @php($lista_tipo=explode(',',$tipo_emp))
+                        
+                        @foreach($lista_tipo as $te)
+                        <option value="{{$te}}">{{$te}}</option>
+                        @endforeach--}}
+                    </select>
                     <x-jet-input-error for="tipo"/>
                 </div>
                 <div>
@@ -100,7 +112,14 @@
                 </div>
                 <div>
                     <x-jet-label value="Turno"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="turno"/>
+                    <select class="w-full" wire:model.defer='turno'>
+                        <section></section>
+                        @php($lista_turno=explode(',',$turno_empl))
+                        <option value="">Selecciona</option>
+                        @foreach($lista_turno as $lt)
+                        <option value="{{$lt}}">{{$lt}}</option>
+                        @endforeach
+                    </select>
                     <x-jet-input-error for="turno"/>
                 </div>
                 <div>

@@ -4,11 +4,12 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Empleados;
+use App\Models\Variables;
 use Auth;
 
 class CreateEmpleados extends Component
 {
-    public $empleados = null;
+    public $empleados = null, $tipo_emp = null, $turno_empl=null;
     public $open_empleado = false, $open_delete = false, $delete_id = null; 
     public $id_empleados = null, $nombre_completo, $tipo, $telefono, $direccion, $escuelas, $turno,$correo, $password;
 
@@ -77,6 +78,10 @@ class CreateEmpleados extends Component
     public function render(){
         //dd(Auth::user()->id_empresa);
         $this->empleados=Empleados::where('id_empresa',Auth::user()->id_empresa)->get();
+        $data = Variables::where([['id_empresa',Auth::user()->id_empresa],['tipo',5]])->first(); 
+        $this->tipo_emp= $data->valores;
+        $data = Variables::where([['id_empresa',Auth::user()->id_empresa],['tipo',4]])->first();
+        $this->turno_empl=$data->valores;
         return view('livewire.create-empleados');
     }
 }

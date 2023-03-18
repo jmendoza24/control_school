@@ -86,13 +86,22 @@
                 </div>
                 <div>
                     <x-jet-label value="Ayudante 1"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="ayudante1"/>
+                    <select class="w-full" wire:model.defer="ayudantes">
+                        <option value="">Selecciona</option>
+                        @foreach($ayudantes as $a)
+                        <option value="{{$a->id}}">{{$a->nombre_completo}}</option>
+                        @endforeach
+                    </select>
                     <x-jet-input-error for="ayudante1"/>
                 </div>
                 <div>
-                    <x-jet-label value="Ayudante2"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="ayudante2"/>
-                    <x-jet-input-error for="ayudante2"/>
+                    <x-jet-label value="Ayudante 2"/>
+                    <select class="w-full" wire:model.defer="ayudantes">
+                        <option value="">Selecciona</option>
+                        @foreach($ayudantes as $a)
+                        <option value="{{$a->id}}">{{$a->nombre_completo}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div>
                     <x-jet-label value="Turno"/>
