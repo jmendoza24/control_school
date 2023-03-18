@@ -29,6 +29,7 @@ Route::middleware([
     Route::view('lista-empleados','empleados.index')->name('empleados.index');
     Route::view('alumnos-asistencia','alumnos.asistencia')->name('asistencia.index');
     Route::view('lista-variables','variables.index')->name('variables.index');
+    Route::view('crear-grupo','grupos.index')->name('grupos.index');
 
     //Route::view('dashboard-administracion','tableros.administracion')->name('tableros.admin');
     //Route::view('clasificadores/{catalogo}/{tipo}/general','clasificadores.index')->name('clasificadores.index');

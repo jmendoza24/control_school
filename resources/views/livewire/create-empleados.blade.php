@@ -2,23 +2,21 @@
     <div class="card">
         <div class="card-header">
             <div class="text-4xl font-normal leading-normal mt-0 flex">
-                <h3 class="flex-1"> Empleados</h3>
+                <h3 class="flex-1"><a wire:click="$set('s_tabla','true')"> Empleados</a></h3>
             <button class="btn btn-sm btn-primary" wire:click="open_empleado" >+ Empleado</button>
             </div>
         </div>
         <div class="card-body">
+            @if($s_tabla == true)
             <div class="custom-table-effect table-responsive  border rounded">
-                <table class="table mb-0" id="datatable" data-toggle="data-table">
+                <table class="table mb-0">
                     <thead>
                         <tr class="bg-white">
                             <th scope="col">Nombre</th>
                             <th scope="col">Tipo</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Direccion</th>
-                            <th scope="col">Escuela</th>
-                            <th scope="col">Turno</th>
                             <th scope="col">Correo</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,36 +26,39 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="media-support-info">
-                                        <h5 class="iq-sub-label">{{ $e->nombre_completo}}</h5>
+                                        <h5 class="iq-sub-label">{{ $e->name}}</h5>
                                         <p class="mb-0"></p>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="">{{ $e->tipo}}</td>
+                                <td class="">{{ $e->perfil}}</td>
+                                <td class="">{{ $e->email}}</td>
                                 <td class="">{{ $e->telefono}}</td>
-                                <td class="">{{ $e->direccion}}</td>
-                                <td class="">{{ $e->escuelas}}</td>
-                                <td class="">{{ $e->turno}}</td>
-                                <td class="">{{ $e->correo}}</td>
                                 <td>
                                     <div class="d-flex justify-content-evenly">
-                                        <a class="btn btn-primary btn-icon btn-sm rounded-pill ms-2" wire:click="editar({{$e->id}})" role="button">
+                                        @if($delete_id == $e->id)   
+                                            <a class="btn btn-sm btn-icon btn-warning rounded" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Cancelar" wire:click="cancelar">
+                                                <span class="btn-inner">
+                                                   <svg class="h-8 w-8 text-red-500"  viewBox="0 0 24 24" fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <polyline points="20 6 9 17 4 12" /></svg>
+                                                </span>
+                                            </a>
+                                        <a class="btn btn-sm btn-icon btn-success rounded" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Eliminar" wire:click="deleteempleado">
                                             <span class="btn-inner">
-                                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path opacity="0.4" d="M19.9927 18.9534H14.2984C13.7429 18.9534 13.291 19.4124 13.291 19.9767C13.291 20.5422 13.7429 21.0001 14.2984 21.0001H19.9927C20.5483 21.0001 21.0001 20.5422 21.0001 19.9767C21.0001 19.4124 20.5483 18.9534 19.9927 18.9534Z" fill="currentColor"></path>
-                                                    <path d="M10.309 6.90385L15.7049 11.2639C15.835 11.3682 15.8573 11.5596 15.7557 11.6929L9.35874 20.0282C8.95662 20.5431 8.36402 20.8344 7.72908 20.8452L4.23696 20.8882C4.05071 20.8903 3.88775 20.7613 3.84542 20.5764L3.05175 17.1258C2.91419 16.4915 3.05175 15.8358 3.45388 15.3306L9.88256 6.95545C9.98627 6.82108 10.1778 6.79743 10.309 6.90385Z" fill="currentColor"></path>
-                                                    <path opacity="0.4" d="M18.1208 8.66544L17.0806 9.96401C16.9758 10.0962 16.7874 10.1177 16.6573 10.0124C15.3927 8.98901 12.1545 6.36285 11.2561 5.63509C11.1249 5.52759 11.1069 5.33625 11.2127 5.20295L12.2159 3.95706C13.126 2.78534 14.7133 2.67784 15.9938 3.69906L17.4647 4.87078C18.0679 5.34377 18.47 5.96726 18.6076 6.62299C18.7663 7.3443 18.597 8.0527 18.1208 8.66544Z" fill="currentColor"></path>
-                                                </svg>
+                                               <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="18" y1="6" x2="6" y2="18" />  <line x1="6" y1="6" x2="18" y2="18" /></svg>
                                             </span>
                                         </a>
-                                        <a class="btn btn-primary btn-icon btn-sm rounded-pill ms-2" wire:click="eliminar({{ $e->id}})" role="button">
+                                        @else
+                                        <a class="btn btn-sm btn-icon btn-info rounded" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Editar" wire:click="editar({{ $e->id}})">
                                             <span class="btn-inner">
-                                                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path opacity="0.4" d="M19.643 9.48851C19.643 9.5565 19.11 16.2973 18.8056 19.1342C18.615 20.8751 17.4927 21.9311 15.8092 21.9611C14.5157 21.9901 13.2494 22.0001 12.0036 22.0001C10.6809 22.0001 9.38741 21.9901 8.13185 21.9611C6.50477 21.9221 5.38147 20.8451 5.20057 19.1342C4.88741 16.2873 4.36418 9.5565 4.35445 9.48851C4.34473 9.28351 4.41086 9.08852 4.54507 8.93053C4.67734 8.78453 4.86796 8.69653 5.06831 8.69653H18.9388C19.1382 8.69653 19.3191 8.78453 19.4621 8.93053C19.5953 9.08852 19.6624 9.28351 19.643 9.48851Z" fill="currentColor"></path>
-                                                    <path d="M21 5.97686C21 5.56588 20.6761 5.24389 20.2871 5.24389H17.3714C16.7781 5.24389 16.2627 4.8219 16.1304 4.22692L15.967 3.49795C15.7385 2.61698 14.9498 2 14.0647 2H9.93624C9.0415 2 8.26054 2.61698 8.02323 3.54595L7.87054 4.22792C7.7373 4.8219 7.22185 5.24389 6.62957 5.24389H3.71385C3.32386 5.24389 3 5.56588 3 5.97686V6.35685C3 6.75783 3.32386 7.08982 3.71385 7.08982H20.2871C20.6761 7.08982 21 6.75783 21 6.35685V5.97686Z" fill="currentColor"></path>
-                                                </svg>
+                                                <svg  width="24"  height="24"  viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg"  fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
                                             </span>
                                         </a>
+                                        <a class="btn btn-sm btn-icon btn-danger rounded" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Delete" wire:click="eliminar({{ $e->id}})">
+                                            <span class="btn-inner">
+                                               <svg class="h-8 w-8 text-red-500"  viewBox="0 0 24 24"  fill="none"  stroke="white"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <polyline points="3 6 5 6 21 6" />  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+                                            </span>
+                                        </a>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -66,63 +67,68 @@
                     </tbody>
                 </table>
             </div>
+            @else
+                <form class="form-horizontal row" wire:submit.prevent="guardar">
+                    <div class="form-group row col-md-6">
+                        <label class="control-label col-sm-3 align-self-center mb-0">Nombre:</label>
+                        <div class="col-sm-9">
+                        <input type="text" class="form-control" wire:model.defer="nombre">
+                        <x-jet-input-error for="nombre"/>
+                        </div>
+                    </div>
+                    <div class="form-group row col-md-6">
+                        <label class="control-label col-sm-3 align-self-center mb-0">E-Mail:</label>
+                        <div class="col-sm-9">
+                        <input type="mail" class="form-control" wire:model.defer="email" >
+                        <x-jet-input-error for="email"/>
+                        </div>
+                    </div>
+                    <div class="form-group row col-md-6">
+                        <label class="control-label col-sm-3 align-self-center mb-0">Tipo usuario:</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" wire:model.defer="tipo">
+                                <option value="">Seleccione...</option>
+                                @foreach($perfiles as $p)
+                                    <option value="{{ $p->id}}">{{ $p->perfil}}</option>
+                                @endforeach
+                            </select>
+                            <x-jet-input-error for="tipo"/>
+                        </div>
+                    </div>
+                    <div class="form-group row col-md-6">
+                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Teléfono:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" wire:model.defer="telefono" >
+                            <x-jet-input-error for="telefono"/>
+                        </div>
+                    </div>
+                    @if($id_empleados == null)
+                    <div class="form-group row col-md-6">
+                        <label class="control-label col-sm-3 align-self-center mb-0" for="email11">Contraseña:</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" wire:model.defer="password">
+                            <x-jet-input-error for="password"/>
+
+                        </div>
+                    </div>
+                    <div class="form-group row col-md-6">
+                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Repite Contraseña:</label>
+                        <div class="col-sm-9">
+                        <input type="password" class="form-control" wire:model.defer="re_password" >
+                            <x-jet-input-error for="re_password"/>
+
+                        </div>
+                    </div>
+                    @endif
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" class="btn btn-danger">Cancel</button>
+                    </div>
+                </form>
+            @endif
         </div>
+
     </div>
-
-    <x-jet-dialog-modal wire:model="open_empleado" class="z-40">
-        <x-slot name="title">Nuevo Empleado</x-slot>
-        <x-slot name="content"> 
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <x-jet-label value="Nombre completo"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="nombre_completo"/>
-                    <x-jet-input-error for="nombre_completo"/>
-                </div>
-                <div>
-                    <x-jet-label value="Tipo"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="tipo"/>
-                    <x-jet-input-error for="tipo"/>
-                </div>
-                <div>
-                    <x-jet-label value="Telefono"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="telefono"/>
-                    <x-jet-input-error for="telefono"/>
-                </div>
-                <div>
-                    <x-jet-label value="Direccion"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="direccion"/>
-                    <x-jet-input-error for="direccion"/>
-                </div>
-                <div>
-                    <x-jet-label value="Escuelas"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="escuelas"/>
-                    <x-jet-input-error for="escuelas"/>
-                </div>
-                <div>
-                    <x-jet-label value="Turno"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="turno"/>
-                    <x-jet-input-error for="turno"/>
-                </div>
-                <div>
-                    <x-jet-label value="Correo"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="correo"/>
-                    <x-jet-input-error for="correo"/>
-                </div>
-                
-                <div>
-                    <x-jet-label value="Pass"/>
-                    <x-jet-input type="text" class="w-full" wire:model.defer="password"/>
-                    <x-jet-input-error for="Pass"/>
-                </div>                    
-              </div>
-        </x-slot>
-        <x-slot name="footer">
-            <div>
-                <button class="btn btn-primary" wire:click="guardar">Guardar</button>
-            </div>
-        </x-slot>
-    </x-jet-dialog-modal>
-
     <x-jet-dialog-modal wire:model="open_delete" >
         <x-slot name="title">
             Eliminar Empleado
