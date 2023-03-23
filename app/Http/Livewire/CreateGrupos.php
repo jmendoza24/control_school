@@ -12,30 +12,66 @@ use Auth;
 
 class CreateGrupos extends Component{
     
-    public $open = false;
+    public $open = false, $query, $grupo_id = null, $datos_camion = null, $camiones = null;
+    public $contacts, $alumnos = null, $camion;
+    public $highlightIndex;
 
     function nuevo_grupo(){
         $this->open = true;
     }
 
     public function render(){
-        $this->camiones=Camiones::leftJoin('empleados as e', function ($join) {
-                    $join->on('camiones.chofer','e.id');
-                    $join->on('e.tipo',db::raw('2'));
-                })
-                ->leftJoin('empleados as e2', function ($join) {
-                    $join->on('camiones.ayudante1','e2.id');
-                    $join->on('e2.tipo',db::raw('3'));
-                })
-                ->where('camiones.id_empresa',Auth::user()->id_empresa)
-                ->selectraw('camiones.*, e.nombre_completo as nombre_chofer, e2.nombre_completo as nom_ayudante')
-                ->get();
-        
-                // dd($this->camiones);
-
-        $this->choferes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',2]])->get();
-        $this->ayudantes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',3]])->get();
-        
+        $this->alumnos = null;
+        $this->camiones = Camiones::where('id_empresa',Auth::user()->id_empresa)->get();
+        $this->datos_camion = Camiones::where('id',$this->camion)->first();
         return view('livewire.create-grupos');
+    }
+
+     public function mount()
+    {
+        $this->limpiar();
+    }
+    
+    public function limpiar(){
+        $this->query = '';
+        $this->contacts = [];
+        $this->highlightIndex = 0;
+    }
+ 
+    public function incrementHighlight()
+    {
+        if ($this->highlightIndex === count($this->contacts) - 1) {
+            $this->highlightIndex = 0;
+            return;
+        }
+        $this->highlightIndex++;
+    }
+ 
+    public function decrementHighlight()
+    {
+        if ($this->highlightIndex === 0) {
+            $this->highlightIndex = count($this->contacts) - 1;
+            return;
+        }
+        $this->highlightIndex--;
+    }
+ 
+    public function selectContact()
+    {
+        $contact = $this->contacts[$this->highlightIndex] ?? null;
+        if ($contact) {
+            $this->redirect(route('show-contact', $contact['id']));
+        }
+    }
+ 
+    public function updatedQuery(){
+        $this->cat_trab = null;
+        $this->directorio = null;
+        $this->user = null;
+        if($this->query != '' && $this->query != ' ' && strlen($this->query) > 3) {
+            $this->contacts = AlumnosModel::where('nombre', 'like', '%' . $this->query . '%')
+            ->get()
+            ->toArray();
+        }
     }
 }
