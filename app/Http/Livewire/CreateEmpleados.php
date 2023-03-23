@@ -12,7 +12,7 @@ class CreateEmpleados extends Component
 {
     public $empleados = null, $perfiles = null, $search = null;
     public $s_tabla = true;
-    public $open_empleado = false, $open_delete = false, $delete_id = null; 
+    public $open_empleado = false, $delete_id = null; 
     public $id_empleados = null, $nombre, $tipo, $telefono, $email, $password, $re_password;
 
     protected $rules = ['nombre'=>'required',
@@ -24,15 +24,16 @@ class CreateEmpleados extends Component
                         //'current_password' => ['required']
                         ];
 
-    public function open_empleado(){
-        //$this->open_empleado=true;
+    public function open_empleado(){     
+        $this->reset();
         $this->s_tabla = false;
+        $this->resetValidation();
     }
 
     public function guardar(){
         $this->validate();
 
-        User::updateorcreate(['id'=>$this->id_empleados],
+        $user =  User::updateorcreate(['id'=>$this->id_empleados],
                                 ['id_empresa'=>Auth::user()->id_empresa,
                                 'name'=>$this->nombre,
                                 'tipo'=>$this->tipo,
@@ -40,15 +41,16 @@ class CreateEmpleados extends Component
                                 'telefono'=>$this->telefono]);
         
         if($this->id_empleados == null){
-            User::updateorcreate(['id'=>$this->id_empleados],
+            User::updateorcreate(['id'=>$user->id],
                         ['password'=>Hash::make($this->password)]);
         }
-
-        $this->id_empleados=null;
         $this->s_tabla=true; 
+        $this->reset();
+        $this->id_empleados=null;
     }
 
     public function editar($id){
+        $this->resetValidation();
         $this->s_tabla = false;
         $data = User::where('id',$id)->first();
         $this->id_empleados = $data->id;
@@ -56,26 +58,25 @@ class CreateEmpleados extends Component
         $this->tipo = $data->tipo;
         $this->telefono = $data->telefono;
         $this->email = $data->email;
-        $this->s_tabla=false; 
     }
 
     public function eliminar($id){
         $this->delete_id = $id;
-        //$this->open_delete = true;
     }
 
     public function deleteempleado(){
         User::where('id',$this->delete_id)->delete();
         $this->empleados=User::all();
-        $this->open_delete=false;
     }
 
     function cancelar(){
         $this->delete_id =  null;
+        $this->reset();
     }
 
     public function render(){
         //dd(Auth::user()->id_empresa);
+        //$this->empleados = User::all();
         $this->empleados = User::leftjoin('perfiles as p','p.id','users.tipo')
                 ->where('users.id_empresa',Auth::user()->id_empresa)
                 ->selectraw('users.*, perfil')

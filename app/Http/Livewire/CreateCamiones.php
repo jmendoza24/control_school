@@ -5,15 +5,18 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Camiones;
 use App\Models\Empleados;
+use App\Models\Users;
+use App\Models\Variables;
 use Auth; 
 use DB;
 
 class CreateCamiones extends Component
 {
-    public $camiones=null, $choferes = null, $ayudantes = null;
+    public $camiones=null, $choferes = null, $ayudantes = null, $turno_camiones = null;
     public $open=false, $open_delete_camiones = false, $delete_id=null;
     public $id_camiones = null, $placa, $serie, $chofer, $ayudante1, $ayudante2, $turno, $telefono1, $telefono2, $ruta, $activo;
-    
+    public $tabla = true;
+
     protected $rules = ['placa'=>'required',
                         'serie'=>'required',
                         'chofer'=>'required',
@@ -24,8 +27,10 @@ class CreateCamiones extends Component
                         'telefono2'=>'required',
                         'ruta'=>'required'];
 
-    public function nuevo_camion() {
-        $this->open=true;
+    public function nuevo_camion() {     
+        $this->reset();
+        $this->tabla=false;
+        $this->resetValidation();
     }
 
     public function guardar(){
@@ -44,13 +49,14 @@ class CreateCamiones extends Component
                                   'ruta'=>$this->ruta,
                                   'activo'=>$this->activo]);
         
-        $this->open=false;
+        $this->tabla=true;
         $this->reset();
         $this->id_camiones=null;
 
     }
 
     public function editar($id){
+        $this->resetValidation();
         $data = Camiones::where('id',$id)->first();
         $this->id_camiones = $data->id;
         $this->placa = $data->placa;
@@ -63,13 +69,12 @@ class CreateCamiones extends Component
         $this->telefono2 = $data->telefono2;
         $this->ruta = $data->ruta;
         $this->activo = $data->activo;
-        $this->open = true;
+        $this->tabla = false;
 
     }
 
     public function eliminar($id){
         $this->delete_id=$id;
-        $this->open_delete_camiones = true;
         
         //Camiones::where('id',$id)->delete();
         //$this->Camiones = camiones::all();
@@ -78,32 +83,35 @@ class CreateCamiones extends Component
     public function deletecamion(){
         Camiones::where('id',$this->delete_id)->delete();
         $this->camiones=Camiones::all();
-        $this->open_delete_camiones=false;
     }
 
     function cancelar(){
-        $this->open_delete_camiones=false;
         $this->delete_id=null;
+        $this->reset();
     }
 
     public function render(){
-        // dd(Auth::user()->id_empresa);
-        $this->camiones=Camiones::leftJoin('empleados as e', function ($join) {
-                    $join->on('camiones.chofer','e.id');
-                    $join->on('e.tipo',db::raw('2'));
-                })
-                ->leftJoin('empleados as e2', function ($join) {
-                    $join->on('camiones.ayudante1','e2.id');
-                    $join->on('e2.tipo',db::raw('3'));
-                })
-                ->where('camiones.id_empresa',Auth::user()->id_empresa)
-                ->selectraw('camiones.*, e.nombre_completo as nombre_chofer, e2.nombre_completo as nom_ayudante')
-                ->get();
-        
-                // dd($this->camiones);
+        $this->camiones=Camiones::leftjoin('users as u', function ($join){
+            $join->on('camiones.chofer','u.id');
+            $join->on('u.tipo',db::raw('2'));
+        })
 
-        $this->choferes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',2]])->get();
-        $this->ayudantes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',3]])->get();
+        ->leftJoin('users as u2', function ($join) {
+            $join->on('camiones.ayudante1','u2.id');
+            $join->on('u2.tipo',db::raw('3'));
+        })
+        ->where('camiones.id_empresa',Auth::user()->id_empresa)
+        ->selectraw('camiones.*, u.name as nombre_chofer, u2.name as nom_ayudante')
+        ->get();
+
+        //$this->choferes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',2]])->get();
+       // $this->ayudantes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',3]])->get();
+        $this->choferes=db::table('users')->where('tipo',2)->get();
+        $this->ayudantes=db::table('users')->where('tipo',3)->get();
+
+        $data = Variables::where([['id_empresa',Auth::user()->id_empresa],['tipo',4]])->first();
+        $this->turno_camiones=$data->valores;
+
         return view('livewire.create-camiones');
     }
 }

@@ -72,15 +72,15 @@
                     <div class="form-group row col-md-6">
                         <label class="control-label col-sm-3 align-self-center mb-0">Nombre:</label>
                         <div class="col-sm-9">
-                        <input type="text" class="form-control" wire:model.defer="nombre">
-                        <x-jet-input-error for="nombre"/>
+                            <input type="text" class="form-control" wire:model.defer="nombre">
+                            <x-jet-input-error for="nombre"/>
                         </div>
                     </div>
                     <div class="form-group row col-md-6">
                         <label class="control-label col-sm-3 align-self-center mb-0">E-Mail:</label>
                         <div class="col-sm-9">
-                        <input type="mail" class="form-control" wire:model.defer="email" >
-                        <x-jet-input-error for="email"/>
+                            <input type="mail" class="form-control" wire:model.defer="email" >
+                            <x-jet-input-error for="email"/>
                         </div>
                     </div>
                     <div class="form-group row col-md-6">
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="form-group row col-md-6">
-                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Teléfono:</label>
+                        <label class="control-label col-sm-3 align-self-center mb-0">Teléfono:</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" wire:model.defer="telefono" >
                             <x-jet-input-error for="telefono"/>
@@ -104,45 +104,27 @@
                     </div>
                     @if($id_empleados == null)
                     <div class="form-group row col-md-6">
-                        <label class="control-label col-sm-3 align-self-center mb-0" for="email11">Contraseña:</label>
+                        <label class="control-label col-sm-3 align-self-center mb-0">Contraseña:</label>
                         <div class="col-sm-9">
                             <input type="password" class="form-control" wire:model.defer="password">
                             <x-jet-input-error for="password"/>
-
                         </div>
                     </div>
                     <div class="form-group row col-md-6">
-                        <label class="control-label col-sm-3 align-self-center mb-0" for="pwd2">Repite Contraseña:</label>
+                        <label class="control-label col-sm-3 align-self-center mb-0">Repite Contraseña:</label>
                         <div class="col-sm-9">
-                        <input type="password" class="form-control" wire:model.defer="re_password" >
+                            <input type="password" class="form-control" wire:model.defer="re_password" >
                             <x-jet-input-error for="re_password"/>
-
                         </div>
                     </div>
                     @endif
-                    <div class="form-group text-right">
+                    <div class=" col-md-12 form-group text-right">
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <button type="submit" class="btn btn-danger">Cancel</button>
+                        <button wire:click="$set('s_tabla',true)" class="btn btn-danger">Cancel</button>
                     </div>
                 </form>
             @endif
         </div>
 
     </div>
-    <x-jet-dialog-modal wire:model="open_delete" >
-        <x-slot name="title">
-            Eliminar Empleado
-        </x-slot>
-
-        <x-slot name="content" >            
-            ¿Estas seguro que deseas eliminar este Empleado?.
-        </x-slot>
-
-        <x-slot name="footer">
-            <button class="btn btn-secondary" wire:click="cancelar">Cancelar</button>
-            <x-jet-button wire:click="deleteempleado" wire:loading.attr="disabled" class="btn bg-danger">
-                Eliminar
-            </x-jet-button>
-        </x-slot>
-    </x-jet-dialog-modal>
 </div>
