@@ -109,6 +109,7 @@ class CreateCamiones extends Component
 
         $data = Variables::where([['id_empresa',Auth::user()->id_empresa],['tipo',4]])->first();
         $this->turno_camiones=$data->valores;
+        $this->emit('mascaras');
 
         return view('livewire.create-camiones');
     }

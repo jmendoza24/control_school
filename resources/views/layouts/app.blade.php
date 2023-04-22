@@ -993,7 +993,9 @@
         <!-- qompacui Script -->
         <script src="{{ url('assets/js/qompac-ui.js?v=1.0.1')}}" defer></script>
         <script src="{{ url('assets/js/sidebar.js?v=1.0.1')}}" defer></script>
+        <script src="{{ url('assets/js/scripts.js')}}" defer></script>
         @stack('modals')
+        @stack('scripts')
 
         @livewireScripts
     </body>

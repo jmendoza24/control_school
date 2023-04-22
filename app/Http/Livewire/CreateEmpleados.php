@@ -82,6 +82,9 @@ class CreateEmpleados extends Component
                 ->selectraw('users.*, perfil')
                 ->get();
         $this->perfiles =db::table('perfiles')->where('activo',1)->get();
+
+        
+        $this->emit('mascaras');
         return view('livewire.create-empleados');
     }
 }

@@ -1,0 +1,28 @@
+.btn-primary, .bg-success{
+	background-color: #1B6771 !important;
+	border-color: #1B6771 !important;
+	color: white ;
+}
+
+
+.page-item .page-link{
+	color: #1B6771 !important;
+}
+
+.page-item.active .page-link {
+	background-color: #1B6771 !important;
+    border-color: #1B6771 !important;
+    color: #fff !important;
+}
+
+.nav-link:hover{
+    box-shadow: unset;
+    color: #1B6771 !important;
+}
+
+.sidebar.sidebar-default .nav-link:not(.static-item).active, .sidebar.sidebar-default .nav-link:not(.static-item)[aria-expanded=true] {
+    background: #1B6771 !important;
+    color: #fff;
+    -webkit-box-shadow: 0 10px 20px -10px rgba(var(--shadow-dark-color), 38%);
+    box-shadow: 0 10px 20px -10px rgba(var(--shadow-dark-color), 38%);
+}

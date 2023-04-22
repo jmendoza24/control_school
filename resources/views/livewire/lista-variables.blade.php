@@ -2,7 +2,7 @@
 	<div class="custom-table-effect table-responsive  border rounded">
        <table class="table mb-0 table-borderless">
 			<thead>
-				<tr>
+				<tr class="bg-success">
 					<th>Variable</th>
 					<th>Valores</th>
 				</tr>

@@ -28,6 +28,8 @@ class ListaAsistencia extends Component
                         ->orwhere('ayudante2',$this->user_id)
                         ->selectraw('g.*, c.placa')
                         ->get();
+                    
+    $this->emit('mascaras');
 
         return view('livewire.lista-asistencia');
     }

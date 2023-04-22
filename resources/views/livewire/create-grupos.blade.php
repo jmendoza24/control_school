@@ -9,9 +9,9 @@
         <div class="card-body row">
             @if($tabla_grupo==true)
             <div class="custom-table-effect table-responsive  border rounded">
-                <table class="table mb-0" id="datatable" data-toggle="data-table">
+                <table class="table mb-0 dataTables-data"> 
                     <thead>
-                        <tr class="bg-white">
+                        <tr class="bg-success">
                             <th scope="col">Grupo</th>
                             <th scope="col">Estatus</th>
                         </tr>

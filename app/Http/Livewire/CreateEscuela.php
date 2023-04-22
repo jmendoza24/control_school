@@ -65,6 +65,7 @@ class CreateEscuela extends Component {
     public function render(){
         //dd(Auth::user()->id_empresa);
         $this->escuelas=escuela::where('id_empresa',Auth::user()->id_empresa)->get();
+        $this->emit('mascaras');
         return view('livewire.create-escuela');
     }
 }

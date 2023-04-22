@@ -117,6 +117,7 @@ class Alumnos extends Component{
         ->where('alumnos.id_empresa',Auth::user()->id_empresa)
         ->selectraw('alumnos.*, e.nombre as nom_escuela')
         ->get();
+        $this->emit('mascaras');
 
         return view('livewire.alumnos');
     }

@@ -9,9 +9,9 @@
         <div class="card-body">
             @if($s_tabla == true)
             <div class="custom-table-effect table-responsive  border rounded">
-                <table class="table mb-0">
+                <table class="table mb-0 dataTables-data"> 
                     <thead>
-                        <tr class="bg-white">
+                        <tr class="bg-success">
                             <th scope="col">Nombre</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">Correo</th>

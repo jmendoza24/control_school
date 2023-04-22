@@ -132,6 +132,8 @@ class CreateGrupos extends Component{
         ->selectraw('a.nombre, e.nombre as nombre_escuela, a.grado, a.grupo')
         ->get();
 
+        
+        $this->emit('mascaras');
         return view('livewire.create-grupos');
     }
 
