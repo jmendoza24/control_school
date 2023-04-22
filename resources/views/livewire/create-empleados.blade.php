@@ -16,7 +16,7 @@
                             <th scope="col">Tipo</th>
                             <th scope="col">Correo</th>
                             <th scope="col">Telefono</th>
-                            <th scope="col"></th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,14 +77,14 @@
                         </div>
                     </div>
                     <div class="form-group row col-md-6">
-                        <label class="control-label col-sm-3 align-self-center mb-0">E-Mail:</label>
+                        <label class="control-label col-sm-3 align-self-center mb-0">Correo:</label>
                         <div class="col-sm-9">
                             <input type="mail" class="form-control" wire:model.defer="email" >
                             <x-jet-input-error for="email"/>
                         </div>
                     </div>
                     <div class="form-group row col-md-6">
-                        <label class="control-label col-sm-3 align-self-center mb-0">Tipo usuario:</label>
+                        <label class="control-label col-sm-3 align-self-center mb-0">Tipo de usuario:</label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model.defer="tipo">
                                 <option value="">Seleccione...</option>
@@ -98,7 +98,7 @@
                     <div class="form-group row col-md-6">
                         <label class="control-label col-sm-3 align-self-center mb-0">Teléfono:</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" wire:model.defer="telefono" >
+                            <input type="text" class="form-control" wire:model.defer="telefono">
                             <x-jet-input-error for="telefono"/>
                         </div>
                     </div>

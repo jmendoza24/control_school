@@ -21,7 +21,8 @@ class Alumnos extends Component{
                         'nivel'=>'required',
                         'escuela'=>'required',
                         'grado'=>'required',
-                        'telefono'=>'required'];
+                        'telefono'=>'required',
+                        'activo'=>'required'];
 
 
     public function nuevo_alumno(){        

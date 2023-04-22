@@ -21,11 +21,11 @@ class CreateCamiones extends Component
                         'serie'=>'required',
                         'chofer'=>'required',
                         'ayudante1'=>'required',
-                        'ayudante2'=>'required',
                         'turno'=>'required',
                         'telefono1'=>'required',
                         'telefono2'=>'required',
-                        'ruta'=>'required'];
+                        'ruta'=>'required',
+                        'activo'=>'required'];
 
     public function nuevo_camion() {     
         $this->reset();
@@ -103,9 +103,7 @@ class CreateCamiones extends Component
         ->where('camiones.id_empresa',Auth::user()->id_empresa)
         ->selectraw('camiones.*, u.name as nombre_chofer, u2.name as nom_ayudante')
         ->get();
-
-        //$this->choferes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',2]])->get();
-       // $this->ayudantes=Empleados::where([['id_empresa',Auth::user()->id_empresa],['tipo',3]])->get();
+        
         $this->choferes=db::table('users')->where('tipo',2)->get();
         $this->ayudantes=db::table('users')->where('tipo',3)->get();
 

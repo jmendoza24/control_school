@@ -91,6 +91,7 @@
                         <option value="1">Activo</option>
                         <option value="2">Inactivo</option>
                     </select>
+                    <x-jet-input-error for="activo"/>
                 </div>
             </div>
                     

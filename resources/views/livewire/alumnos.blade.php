@@ -155,7 +155,7 @@
                 </div>
                 <div class="col-md-6"></div>
                 <div class="form-group row col-md-6">
-                    <label class="control-label col-sm-3 align-self-center mb-0">Nombre padre</label>
+                    <label class="control-label col-sm-3 align-self-center mb-0">Padre</label>
                     <div class="col-sm-9">
                     <x-jet-input type="text" class="w-full" wire:model.defer="nombre_padre" />
                     </div>
@@ -168,7 +168,7 @@
                     </div>
                 </div>
                 <div class="form-group row col-md-6">
-                    <label class="control-label col-sm-3 align-self-center mb-0">Nombre madre</label>
+                    <label class="control-label col-sm-3 align-self-center mb-0">Madre</label>
                     <div class="col-sm-9">
                     <x-jet-input type="text" class="w-full" wire:model.defer="nombre_madre" />
                     </div>
@@ -180,7 +180,7 @@
                     </div>
                 </div>
                 <div class="form-group row col-md-6">
-                    <x-jet-label class="control-label col-sm-3 align-self-center mb-0" value="Email"/>
+                    <x-jet-label class="control-label col-sm-3 align-self-center mb-0" value="Correo"/>
                     <div class="col-sm-9">
                     <x-jet-input type="text" class="w-full" wire:model.defer="correo"/>
                     </div>
@@ -194,16 +194,14 @@
                             <option value="1">Activo</option>
                             <option value="2">Inactivo</option>
                         </select>
+                        <x-jet-input-error for="activo"/>
                     </div>
                 </div>
                 <div class=" col-md-12 form-group text-right">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                     <button wire:click="$set('tabla',true)" class="btn btn-danger">Cancel</button>
                 </div>
-                
-
              </form>
-
              @endif
         </div>
     </div>
