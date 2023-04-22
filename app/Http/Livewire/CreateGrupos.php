@@ -42,6 +42,10 @@ class CreateGrupos extends Component{
         $this->tabla_grupo = false;
     
     }
+     function editar($id){
+        $data = null; 
+        $this->datos_camion = Camiones::where('id',$this->camion)->first();
+     }
 
     public function cancelar(){
         $this->tabla_grupo = true; 
