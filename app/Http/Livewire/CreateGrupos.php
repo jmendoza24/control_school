@@ -20,12 +20,21 @@ class CreateGrupos extends Component{
         $this->open = true;
     }
 
+    function selectContact($id){
+        // INsertar a la tabla de grupo_alumnos, 
+        // #camion, $id, $id-empresa
+    }
+
     public function render(){
         $this->alumnos = null;
         $this->camiones = Camiones::where('id_empresa',Auth::user()->id_empresa)->get();
         $this->datos_camion = Camiones::where('id',$this->camion)->first();
         return view('livewire.create-grupos');
     }
+     function editar($id){
+        $data = null; 
+        $this->datos_camion = Camiones::where('id',$this->camion)->first();
+     }
 
      public function mount()
     {

@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="card-body">
-            @livewire('lista-asistencia')
+            @livewire('lista-asistencia') 
         </div>
     </div>
     
