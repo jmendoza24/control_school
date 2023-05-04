@@ -11,7 +11,7 @@
             <div class="custom-table-effect table-responsive  border rounded">
                 <table class="table mb-0" id="datatable" data-toggle="data-table">
                     <thead>
-                        <tr class="bg-white">
+                        <tr class="bg-success">
                             <th scope="col">Alumno</th>
                             <th scope="col">Direccion</th>
                             <th scope="col">Escuela</th>

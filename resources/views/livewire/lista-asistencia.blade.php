@@ -1,11 +1,12 @@
 <div>
+	
 	<div class="col-md-12 row">
 		@foreach($grupos as $g)
 			<div class="col-lg-3 col-md-6">
 	         <div class="card bg-soft-info">
 	            <div class="card-body">
 	               <div class="d-flex justify-content-between align-items-center">
-	                  <div class="bg-info text-white rounded p-3">
+	                  <div class="bg-info text-white rounded p-3" wire:click="ver_grupo({{$g->id}})">
 	                     <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 	                        <path d="M11.9488 14.54C8.49884 14.54 5.58789 15.1038 5.58789 17.2795C5.58789 19.4562 8.51765 20.0001 11.9488 20.0001C15.3988 20.0001 18.3098 19.4364 18.3098 17.2606C18.3098 15.084 15.38 14.54 11.9488 14.54Z" fill="currentColor"></path>
 	                        <path opacity="0.4" d="M11.949 12.467C14.2851 12.467 16.1583 10.5831 16.1583 8.23351C16.1583 5.88306 14.2851 4 11.949 4C9.61293 4 7.73975 5.88306 7.73975 8.23351C7.73975 10.5831 9.61293 12.467 11.949 12.467Z" fill="currentColor"></path>
@@ -24,5 +25,45 @@
 	         </div>
 	      </div>
 		@endforeach
+
 	</div>
+
+	<x-jet-dialog-modal wire:model="open">
+		<x-slot name="title">
+		</x-slot>
+		<x-slot name="content">
+			@if($alumnos != null)
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table class="table table-borderless table-striped">
+									@foreach($alumnos as $a)
+										<tr>
+											<td>
+												<div class="d-flex align-items-center">
+			                                        <img src="{{ (Auth::user()->profile_photo_url != '') ? Auth::user()->profile_photo_url :  'assets/images/avatars/01.png'}}" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded" loading="lazy">
+			                                        <div class="media-support-info">
+			                                        <h5 class="iq-sub-label">{{ $a->nombre}}</h5>
+			                                        <p class="mb-0">{{ 'Escuela 123'}}</p>
+			                                        </div>
+			                                    </div> 
+			                                    <div class="btn-group">
+				                                    <button class="btn btn-primary mr-2 mt-2 pull-right" wire:click="ingreso({{$a->id}})">Ingreso</button>
+				                                    <button class="btn btn-primary ml-2 mt-2 pull-right" wire:click="ingreso({{$a->id}})">Entrega</button>
+				                                    <button class="btn btn-primary ml-2 mt-2 pull-right" wire:click="transferir({{$a->id}})">Transferir</button>
+			                                    </div>
+
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					</div>
+					@endif
+		</x-slot>
+		<x-slot name="footer">
+		</x-slot>
+
+	</x-jet-dialog-modal>
+	
 </div>

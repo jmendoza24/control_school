@@ -1,10 +1,4 @@
 <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
-    <li class="nav-item static-item">
-        <a class="nav-link static-item disabled text-start" href="#" tabindex="-1">
-            <span class="default-icon">Home</span>
-            <span class="mini-icon" data-bs-toggle="tooltip" title="Home" data-bs-placement="right">-</span>
-        </a>
-    </li>
     <li class="nav-item">
         <a class="nav-link " aria-current="page" href="{{ route('dashboard') }}">
             <i class="icon" data-bs-toggle="tooltip" title="Dashboard" data-bs-placement="right">
