@@ -29,7 +29,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" type="text/css" href="{{ url('assets/css/style.css')}}">
         
-        
+        @php(date_default_timezone_set('America/Mexico_City'))
         
         @livewireStyles
     </head>
@@ -38,7 +38,7 @@
         <div id="loading">
         <div class="loader simple-loader">
             <div class="loader-body ">
-                <img src="{{ url('assets/images/loader.webp')}}" alt="loader" class="image-loader img-fluid ">
+                <div class="iq-loader-box"><div class="iq-loader-14"></div></div>
             </div>
         </div>
         </div>
@@ -994,6 +994,7 @@
         <script src="{{ url('assets/js/qompac-ui.js?v=1.0.1')}}" defer></script>
         <script src="{{ url('assets/js/sidebar.js?v=1.0.1')}}" defer></script>
         <script src="{{ url('assets/js/scripts.js')}}" defer></script>
+
         @stack('modals')
         @stack('scripts')
 
